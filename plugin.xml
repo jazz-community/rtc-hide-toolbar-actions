@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?eclipse version="3.4" ?>
+<plugin>
+    <extension point="net.jazz.ajax.webBundles"></extension>
+    <extension point="com.ibm.team.workitem.web.editorToolbarAction">
+        <action
+                action="com.siemens.bt.jazz.workitemeditor.rtcHideToolbarActions.ui.HideToolbarActions"
+                id="com.siemens.bt.jazz.workitemeditor.rtcHideToolbarActions"
+                label="Hide Toolbar Actions"></action>
+    </extension>
+</plugin>
