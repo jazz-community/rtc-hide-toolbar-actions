@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RTC Hide Toolbar Actions
+Bundle-SymbolicName: com.siemens.bt.jazz.workitemeditor.rtcHideToolbarActions;singleton:=true
+Bundle-Version: 1.1.0.qualifier
+Bundle-Vendor: Siemens Schweiz AG
+Bundle-Localization: plugin
