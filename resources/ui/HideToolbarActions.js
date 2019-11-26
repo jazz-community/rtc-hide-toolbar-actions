@@ -199,14 +199,40 @@ define([
 
       // Removes a toolbar action button from the dom after finding it by the value of it's title attribute
       _removeButtonByTitle: function(buttonTitle) {
-        query(
-          ".com-ibm-team-workItem-workItemEditorHeader .jazz-ui-Toolbar " +
-            ".jazz-ui-toolbar-Button .button[title='" +
-            buttonTitle +
-            "']"
-        ).forEach(function(node) {
-          domConstruct.destroy(node.parentElement);
-        });
+        var workItemEditorWidget = this._getWorkItemEditorWidget(
+          this.workingCopy
+        );
+
+        if (workItemEditorWidget) {
+          query(
+            ".com-ibm-team-workItem-workItemEditorHeader .jazz-ui-Toolbar " +
+              ".jazz-ui-toolbar-Button .button[title='" +
+              buttonTitle +
+              "']",
+            workItemEditorWidget.domNode
+          ).forEach(function(node) {
+            domConstruct.destroy(node.parentElement);
+          });
+        }
+      },
+
+      // Get the work item editor widget instance from the work item page instance
+      // taken from the cache
+      _getWorkItemEditorWidget: function(workItem) {
+        var workItemEditorWidget;
+
+        try {
+          workItemEditorWidget = jazz.app.currentApplication.workbench._pageWidgetCache[
+            "com.ibm.team.workitem"
+          ]._multipaneContentWidget.getCachedWidget(
+            "__jazzWorkItemEditor",
+            workItem.getId()
+          );
+        } catch (e) {
+          workItemEditorWidget = null;
+        }
+
+        return workItemEditorWidget;
       }
     }
   );
