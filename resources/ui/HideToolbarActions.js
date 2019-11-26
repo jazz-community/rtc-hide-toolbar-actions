@@ -2,10 +2,11 @@ define([
   "dojo/_base/declare",
   "dojo/dom-construct",
   "dojo/query",
+  "dojo/request/xhr",
   "dojo/i18n!com.ibm.team.workitem.web/ui/internal/nls/WorkItemEditorMessages",
   "com.ibm.team.workitem.web.ui2.internal.action.AbstractAction",
   "dojo/domReady!"
-], function(declare, domConstruct, query, WorkItemEditorMessages) {
+], function(declare, domConstruct, query, xhr, WorkItemEditorMessages) {
   // Note that all of the above imports of ibm classes will log an error to the console but the classes are still loaded.
   // Using dojo.require doesn't log an error but also doesn't require the module when using AMD syntax.
 
@@ -45,12 +46,34 @@ define([
           titleValues: []
         }
       },
+      configFileName: "workitem_hide_toolbar_actions.json",
+      configFileUrl: null,
+      contentServiceUrl: null,
+      projectAreaId: null,
+      config: null,
 
       // Call the inherited constructor
       constructor: function(params) {
         this.inherited(arguments);
 
+        this.contentServiceUrl =
+          net.jazz.ajax._contextRoot +
+          "/service/com.ibm.team.workitem.common.internal.model.IImageContentService/processattachment";
+        this.projectAreaId = this.workingCopy.getValue({
+          path: ["attributes", "projectArea", "id"]
+        });
+        this.configFileUrl =
+          this.contentServiceUrl +
+          "/" +
+          this.projectAreaId +
+          "/" +
+          this.configFileName;
+
         this._initializeTitleValues();
+
+        this._getConfig(function() {
+          console.log(this.config);
+        });
       },
 
       // Always hide the action
@@ -79,6 +102,41 @@ define([
             });
           }
         }
+      },
+
+      _getConfig: function(callback) {
+        var self = this;
+        xhr
+          .get(this.configFileUrl, {
+            handleAs: "json",
+            headers: {
+              Accept: "application/json"
+            }
+          })
+          .then(
+            function(response) {
+              var workItemType = self.workingCopy.getValue({
+                path: ["attributes", "workItemType", "id"]
+              });
+
+              if (response && response[workItemType]) {
+                self.config = response[workItemType];
+
+                callback.call(self);
+              } else {
+                console.log(
+                  "No hidden toolbar actions configured for this process + work item type. No toolbar actions will be hidden."
+                );
+              }
+            },
+            function(error) {
+              console.log(
+                "No '" +
+                  self.configFileName +
+                  "' file found in the process attachments. No toolbar actions will be hidden."
+              );
+            }
+          );
       },
 
       // Runs the handler when the next readonly changed event is published
