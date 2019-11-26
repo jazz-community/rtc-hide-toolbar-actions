@@ -14,6 +14,36 @@ define([
     com.ibm.team.workitem.web.ui2.internal.action.AbstractAction,
     {
       workItemReadonlyChangedEventName: "workitem/readonly/changed",
+      hidableToolbarActions: {
+        refresh: {
+          titleNames: ["titleRefreshWorkItem"],
+          titleValues: []
+        },
+        copyIdAndSummary: {
+          titleNames: ["titleCopyIdAndSummary"],
+          titleValues: []
+        },
+        moveOrCopy: {
+          titleNames: ["titleMoveCopy"],
+          titleValues: []
+        },
+        subscribe: {
+          titleNames: ["titleSubscribeMe", "titleUnsubscribeMe"],
+          titleValues: []
+        },
+        createChild: {
+          titleNames: ["titleCreateChild"],
+          titleValues: []
+        },
+        copy: {
+          titleNames: ["titleCreateCopy"],
+          titleValues: []
+        },
+        findDuplicates: {
+          titleNames: ["titleFindPotentialDuplicates"],
+          titleValues: []
+        }
+      },
 
       // Call the inherited constructor
       constructor: function(params) {
