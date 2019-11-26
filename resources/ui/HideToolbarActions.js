@@ -13,6 +13,8 @@ define([
     "com.siemens.bt.jazz.workitemeditor.rtcHideToolbarActions.ui.HideToolbarActions",
     com.ibm.team.workitem.web.ui2.internal.action.AbstractAction,
     {
+      workItemReadonlyChangedEventName: "workitem/readonly/changed",
+
       // Call the inherited constructor
       constructor: function(params) {
         this.inherited(arguments);
@@ -26,6 +28,17 @@ define([
       // Always disable the action
       isEnabled: function(params) {
         return false;
+      },
+
+      _subscribeToReadonlyChanged: function(handler) {
+        var subscription = dojo.subscribe(
+          this.workItemReadonlyChangedEventName,
+          this,
+          function() {
+            dojo.unsubscribe(subscription);
+            handler.call(this);
+          }
+        );
       },
 
       _removeButtonByTitle: function(buttonTitle) {
