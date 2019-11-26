@@ -1,0 +1,11 @@
+{
+  "defect": {
+    "refresh": true,
+    "copyIdAndSummary": true,
+    "moveOrCopy": true,
+    "subscribe": true,
+    "createChild": true,
+    "copy": true,
+    "findDuplicates": true
+  }
+}
