@@ -46,6 +46,8 @@ define([
           titleValues: []
         }
       },
+      configFileLoaded: false,
+      workItemEditorReady: false,
       configFileName: "workitem_hide_toolbar_actions.json",
       configFileUrl: null,
       contentServiceUrl: null,
@@ -59,9 +61,8 @@ define([
         this._initializeConfigFileUrl();
         this._initializeTitleValues();
 
-        this._getConfig(function() {
-          console.log(this.config);
-        });
+        this._getConfig(this._loadedCallback);
+        this._subscribeToReadonlyChanged(this._loadedCallback);
       },
 
       // Always hide the action
@@ -126,6 +127,7 @@ define([
               });
 
               if (response && response[workItemType]) {
+                self.configFileLoaded = true;
                 self.config = response[workItemType];
 
                 callback.call(self);
@@ -147,14 +149,23 @@ define([
 
       // Runs the handler when the next readonly changed event is published
       _subscribeToReadonlyChanged: function(handler) {
+        var self = this;
         var subscription = dojo.subscribe(
           this.workItemReadonlyChangedEventName,
           this,
           function() {
             dojo.unsubscribe(subscription);
-            handler.call(this);
+            self.workItemEditorReady = true;
+            handler.call(self);
           }
         );
+      },
+
+      // Hide the buttons when the config is loaded and the work item editor is ready
+      _loadedCallback: function() {
+        if (this.configFileLoaded && this.workItemEditorReady) {
+          // remove buttons
+        }
       },
 
       // Removes a toolbar action button from the dom after finding it by the value of it's title attribute
