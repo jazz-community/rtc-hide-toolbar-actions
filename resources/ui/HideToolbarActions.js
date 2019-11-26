@@ -164,7 +164,36 @@ define([
       // Hide the buttons when the config is loaded and the work item editor is ready
       _loadedCallback: function() {
         if (this.configFileLoaded && this.workItemEditorReady) {
-          // remove buttons
+          this._removeConfiguredButtons();
+        }
+      },
+
+      // Remove all of the buttons that are in the config with the value true
+      // Only buttons that are in the hidableToolbarActions object will be remove
+      // The names in the config are case insensitive
+      _removeConfiguredButtons: function() {
+        var self = this;
+
+        for (var configToolbarAction in this.config) {
+          if (
+            this.config.hasOwnProperty(configToolbarAction) &&
+            this.config[configToolbarAction] === true
+          ) {
+            for (var configActionName in this.hidableToolbarActions) {
+              if (
+                this.hidableToolbarActions.hasOwnProperty(configActionName) &&
+                configToolbarAction.toLowerCase() ===
+                  configActionName.toLowerCase()
+              ) {
+                var hidableToolbarAction = this.hidableToolbarActions[
+                  configActionName
+                ];
+                hidableToolbarAction.titleValues.forEach(function(titleValue) {
+                  self._removeButtonByTitle(titleValue);
+                });
+              }
+            }
+          }
         }
       },
 
