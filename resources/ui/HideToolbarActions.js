@@ -56,19 +56,7 @@ define([
       constructor: function(params) {
         this.inherited(arguments);
 
-        this.contentServiceUrl =
-          net.jazz.ajax._contextRoot +
-          "/service/com.ibm.team.workitem.common.internal.model.IImageContentService/processattachment";
-        this.projectAreaId = this.workingCopy.getValue({
-          path: ["attributes", "projectArea", "id"]
-        });
-        this.configFileUrl =
-          this.contentServiceUrl +
-          "/" +
-          this.projectAreaId +
-          "/" +
-          this.configFileName;
-
+        this._initializeConfigFileUrl();
         this._initializeTitleValues();
 
         this._getConfig(function() {
@@ -84,6 +72,22 @@ define([
       // Always disable the action
       isEnabled: function(params) {
         return false;
+      },
+
+      // Get the config file url using the current project area id and the config file name
+      _initializeConfigFileUrl: function() {
+        this.contentServiceUrl =
+          net.jazz.ajax._contextRoot +
+          "/service/com.ibm.team.workitem.common.internal.model.IImageContentService/processattachment";
+        this.projectAreaId = this.workingCopy.getValue({
+          path: ["attributes", "projectArea", "id"]
+        });
+        this.configFileUrl =
+          this.contentServiceUrl +
+          "/" +
+          this.projectAreaId +
+          "/" +
+          this.configFileName;
       },
 
       // Get the locale specific titles for the hidable toolbar actions
@@ -104,6 +108,8 @@ define([
         }
       },
 
+      // Get the config file from the process attachments
+      // Sets the config property and calls the callback function on success
       _getConfig: function(callback) {
         var self = this;
         xhr
