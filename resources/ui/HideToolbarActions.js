@@ -169,7 +169,7 @@ define([
       },
 
       // Remove all of the buttons that are in the config with the value true
-      // Only buttons that are in the hidableToolbarActions object will be remove
+      // Only buttons that are in the hidableToolbarActions object will be removed
       // The names in the config are case insensitive
       _removeConfiguredButtons: function() {
         var self = this;
