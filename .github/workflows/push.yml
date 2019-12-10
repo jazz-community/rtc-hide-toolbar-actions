@@ -1,0 +1,18 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+    - name: npm install and build
+      run: |
+        npm ci
+        npm run build
+      env:
+        CI: true
