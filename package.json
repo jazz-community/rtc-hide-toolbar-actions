@@ -4,6 +4,7 @@
   "description": "Hide built in work item toolbar actions",
   "main": "./resources/ui/HideToolbarActions.js",
   "devDependencies": {
+    "@actions/core": "^1.2.0",
     "disable-output-webpack-plugin": "^1.0.1",
     "jazz-update-site-webpack-plugin": "^0.4.1",
     "moment": "^2.24.0",
