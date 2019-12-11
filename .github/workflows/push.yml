@@ -16,3 +16,8 @@ jobs:
         npm run build
       env:
         CI: true
+    - name: Upload build result
+      uses: actions/upload-artifact@v1
+      with:
+        name: rtc-hide-toolbar-actions-${GITHUB_SHA}
+        path: ${OUTPUT_FILE}
