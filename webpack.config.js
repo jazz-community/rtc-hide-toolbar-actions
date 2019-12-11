@@ -52,9 +52,11 @@ module.exports = env => {
     ]
   };
 
-  // Set the output file name for use in GitHub Actions
-  core.setOutput("outputFile", `${projectId}_${version}.zip`);
-  core.setOutput("commitSha", process.env["GITHUB_SHA"]);
+  if (process.env["GITHUB_ACTIONS"]) {
+    // Set the output file name for use in GitHub Actions
+    core.setOutput("outputFile", `${projectId}_${version}.zip`);
+    core.setOutput("commitSha", process.env["GITHUB_SHA"]);
+  }
 
   return config;
 };
