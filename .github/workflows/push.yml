@@ -20,4 +20,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: rtc-hide-toolbar-actions-${{ github.sha }}
-          path: ${{ steps.npm_build.outputs.outputFile }}
+          path: ${{ steps.npm_build.outputs.output_file }}
