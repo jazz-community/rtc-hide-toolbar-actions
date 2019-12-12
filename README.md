@@ -7,9 +7,11 @@ Do you want to prevent users from using some of the actions in the work item edi
 Using this plugin you can hide built-in work item actions. The plugin can be configured per project area and work item type to give you full control over what is hidden and when.
 
 Before:
+
 ![Screenshot Before](https://github.com/jazz-community/rtc-hide-toolbar-actions/blob/master/documentation/toolbar-actions-before.png)
 
 After: (with "copy", "createChild", and "move" buttons removed)
+
 ![Screenshot After](https://github.com/jazz-community/rtc-hide-toolbar-actions/blob/master/documentation/toolbar-actions-after.png)
 
 ## Configuration
