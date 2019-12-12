@@ -5,7 +5,11 @@ Do you want to prevent users from using some of the actions in the work item edi
 
 Using this plugin you can hide built-in work item actions. The plugin can be configured per project area and work item type to give you full control over what is hidden and when.
 
-(add screenshot: before -> after)
+Before:  
+![Screenshot Before](https://github.com/MartinBenninger/rtc-hide-toolbar-actions/blob/master/documentation/toolbar-actions-before.png)
+
+After: (with "copy", "createChild", and "move" buttons removed)  
+![Screenshot After](https://github.com/MartinBenninger/rtc-hide-toolbar-actions/blob/master/documentation/toolbar-actions-after.png)
 
 ## Configuration
 This plugin will not make any changes to the visible actions without a configuration file. The configuration file needs to be uploaded to the process attachments. Using the configuration file it is possible to hide different actions based on the work item type. Since the configuration file is stored in the process attachments it will only affect the work items within that process. The process can be a project area or a project area template. If uploaded to a template, the configuration will be valid for all project areas that inherit from that template.
