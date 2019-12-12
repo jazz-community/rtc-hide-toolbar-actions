@@ -8,7 +8,9 @@ Using this plugin you can hide built-in work item actions. The plugin can be con
 (add screenshot: before -> after)
 
 ## Configuration
-todo
+This plugin will not make any changes to the visible actions without a configuration file. The configuration file needs to be uploaded to the process attachments. Using the configuration file it is possible to hide different actions based on the work item type. Since the configuration file is stored in the process attachments it will only affect the work items within that process. The process can be a project area or a project area template. If uploaded to a template, the configuration will be valid for all project areas that inherit from that template.
+
+
 
 ## Setup
 
