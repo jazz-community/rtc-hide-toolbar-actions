@@ -10,7 +10,31 @@ Using this plugin you can hide built-in work item actions. The plugin can be con
 ## Configuration
 This plugin will not make any changes to the visible actions without a configuration file. The configuration file needs to be uploaded to the process attachments. Using the configuration file it is possible to hide different actions based on the work item type. Since the configuration file is stored in the process attachments it will only affect the work items within that process. The process can be a project area or a project area template. If uploaded to a template, the configuration will be valid for all project areas that inherit from that template.
 
-
+### Instructions
+ - Create a json text file named: `workitem_hide_toolbar_actions.json`
+ - Copy the following json into the file:
+```json
+{
+  "defect": {
+    "refresh": false,
+    "copyIdAndSummary": false,
+    "moveOrCopy": false,
+    "subscribe": false,
+    "createChild": false,
+    "copy": false,
+    "findDuplicates": false
+  },
+  "some.other.workitem.id": {
+    "copy": true
+  }
+}
+```
+ - Replace `"defect"` with the id of the work item type that you want to use
+   - Optionally, add additional sections to enable for multiple work item types (e.g. `"some.other.workitem.id"`)
+ - Set the value to `true` for the actions that you want to be hidden (actions with the value `false` can also be omitted from the configuration altogether)
+ - Save the file and upload it to the process attachments
+   - [See the instructions from IBM on how to edit process attachments](https://jazz.net/help-dev/clm/index.jsp?topic=%2Fcom.ibm.jazz.platform.doc%2Ftopics%2Ft_add_attachment_process.html)
+ - Refresh your browser to see the actions now missing in the work item editor (you might need to clear the browser cache to see the changes right away)
 
 ## Setup
 
